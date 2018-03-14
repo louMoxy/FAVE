@@ -7,14 +7,28 @@ const circleStyle = {
   "circle-opacity": 1
 };
 export class Layers extends React.Component {
-  render() {
+  constructor(props) {
+    super(props);
+    this.state = {
+      places: {}
+    };
+  }
+
+  componentWillMount() {
     const data = require("../data/dummy-data.json");
-    const layers = Object.values(data).map(val => {
+    Object.values(data).map(val => {
       return <Feature coordinates={val.location} />;
     });
+    this.setState({ places: data });
+  }
+
+  render() {
+    const { places } = this.state;
     return (
       <Layer type="circle" paint={circleStyle}>
-        {layers}
+        {Object.values(places).map((place, index) => {
+          return <Feature coordinates={place.location} key={place.name} />;
+        })}
       </Layer>
     );
   }
