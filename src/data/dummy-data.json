@@ -1,8 +1,14 @@
 {
-  "data": [{
-    "formatted_address": "Visto"
+  "data1": {
+    "name": "Visto Lounge",
+    "location": [-3.533518, 50.46349]
   },
-  {
-    "formatted_address": "Visto"
-  }]
+  "data2": {
+    "name": "Park Lane",
+    "location": [-3.523027, 50.460937]
+  },
+  "data3": {
+    "name": "The Kind Grind",
+    "location": [-3.537631, 50.467892]
+  }
 }
