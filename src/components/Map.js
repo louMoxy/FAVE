@@ -20,6 +20,16 @@ export class Map extends React.Component {
     };
   }
 
+  onDrag() {
+    if (this.state.selectedPlace) {
+      this.setState({ selectedPlace: null });
+    }
+  }
+
+  locationClicked(place) {
+    this.setState({ selectedPlace: place });
+  }
+
   componentWillMount() {
     const data = require("../data/dummy-data.json");
     Object.values(data).map(val => {
@@ -34,15 +44,22 @@ export class Map extends React.Component {
       <MapBox
         style="mapbox://styles/mapbox/streets-v8"
         center={[-3.533518, 50.46349]}
+        onDrag={this.onDrag.bind(this)}
       >
         <Layer type="circle" paint={circleStyle}>
           {Object.values(places).map((place, index) => {
-            return <Feature coordinates={place.location} key={place.name} />;
+            return (
+              <Feature
+                onClick={this.locationClicked.bind(this, place)}
+                coordinates={place.location}
+                key={place.name}
+              />
+            );
           })}
         </Layer>
         {selectedPlace && (
           <Popup key={selectedPlace.name} coordinates={selectedPlace.location}>
-            <h1>Popup</h1>
+            <h1>{selectedPlace.name}</h1>
           </Popup>
         )}
       </MapBox>
